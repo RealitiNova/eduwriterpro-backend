@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors'); // <-- ADD this line
 const app = express();
 
 // Enable CORS for your frontend domain
@@ -21,4 +22,3 @@ app.get('/api/test', (req, res) => {
 
 // Export the app for server.js to use
 module.exports = app;
-
