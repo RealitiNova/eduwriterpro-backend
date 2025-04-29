@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 
+// Enable CORS for your frontend domain
+app.use(cors({
+  origin: 'https://eduwriterspro.com', // Allow only your frontend
+}));
+
 // Middleware
 app.use(express.json()); // Enable parsing of JSON request bodies
 
