@@ -1,16 +1,19 @@
 const express = require('express');
 const app = express();
 
-// Force port binding for Render and other platforms
-app.set('port', process.env.PORT || 5000);
-
-// Middleware (optional, you can add later)
-// app.use(express.json());
+// Middleware
+app.use(express.json()); // Enable parsing of JSON request bodies
 
 // Basic route for testing
 app.get('/', (req, res) => {
   res.send('EduWriterPro Backend Running ✅');
 });
 
+// Example API route (you can remove or expand this later)
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API is working!' });
+});
+
 // Export the app for server.js to use
 module.exports = app;
+
