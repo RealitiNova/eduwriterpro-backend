@@ -4,7 +4,7 @@ const app = express();
 
 // Enable CORS for your frontend domain
 app.use(cors({
-  origin: 'https://eduwriterspro.com', // Allow only your frontend
+  origin: 'https://eduwriterpro.com', // Allow only your frontend
 }));
 
 // Middleware
