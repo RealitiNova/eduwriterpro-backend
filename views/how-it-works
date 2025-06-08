@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How It Works | EduWriterPro</title>
+  <style>
+    body, html {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7fafc;
+      color: #2d3748;
+    }
+
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      width: 90%;
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #5a67d8;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      margin-left: 1.5rem;
+      color: #2d3748;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .step {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .step-icon {
+      font-size: 2rem;
+    }
+
+    .step-text h3 {
+      margin: 0 0 0.5rem;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .cta a {
+      background-color: #5a67d8;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .cta a:hover {
+      background-color: #434190;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <div class="nav-container">
+    <a href="/" class="logo">EduWriterPro</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="post-assignment.html">Post Assignment</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="content">
+  <h1>How EduWriterPro Works</h1>
+
+  <div class="step">
+    <div class="step-icon">📝</div>
+    <div class="step-text">
+      <h3>1. Post Your Assignment</h3>
+      <p>Fill out a simple form with your assignment details, deadline, academic level, and budget.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-icon">🤝</div>
+    <div class="step-text">
+      <h3>2. Get Matched with a Writer</h3>
+      <p>Our system connects you with a qualified academic writer who specializes in your subject area.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-icon">✍️</div>
+    <div class="step-text">
+      <h3>3. Work in Progress</h3>
+      <p>Stay in touch with your writer, request drafts, and provide feedback as your assignment is written.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-icon">📬</div>
+    <div class="step-text">
+      <h3>4. Receive Your Paper</h3>
+      <p>Once completed, download your assignment and request revisions if needed — satisfaction guaranteed.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <a href="/order/new">Post Your Assignment Now</a>
+  </div>
+</div>
+
+</body>
+</html>
