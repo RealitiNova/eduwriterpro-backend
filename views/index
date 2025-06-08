@@ -258,8 +258,8 @@
       <h1>Get your assignments done by pros.</h1>
       <p>High-quality, on-time academic help from expert writers.</p>
       <div class="cta-buttons">
-        <a href="/order/new" class="btn primary">Post an Assignment</a>
-        <a href="/signup" class="btn secondary">Sign Up</a>
+        <a href="/post-assignment.html" class="btn primary">Post an Assignment</a>
+        <a href="/signup.html" class="btn secondary">Sign Up</a>
       </div>
     </div>
   </section>
