@@ -22,6 +22,10 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
 });
 
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
+
 // ✅ Route to serve the "Post an Assignment" page
 app.get('/post-assignment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'post-assignment.html'));
