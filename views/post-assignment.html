@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post Assignment | EduWriterPro</title>
+
+  <style>
+    body, html {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f0f4f8;
+      color: #2d3748;
+    }
+
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      width: 90%;
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #5a67d8;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      margin-left: 1.5rem;
+      color: #2d3748;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input, textarea, select {
+      margin-bottom: 1.25rem;
+      padding: 0.75rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn {
+      background-color: #5a67d8;
+      color: #fff;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #434190;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .calculated-budget {
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <div class="nav-container">
+    <a href="/" class="logo">EduWriterPro</a>
+   <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="post-assignment.html">Post Assignment</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Post Assignment Form -->
+<div class="container">
+  <h2>Post a New Assignment</h2>
+  <form id="assignmentForm">
+    <input type="text" id="title" placeholder="Assignment Title" required />
+    <textarea id="description" placeholder="Assignment Description" required></textarea>
+    <input type="date" id="deadline" required />
+
+    <select id="subject" required>
+      <option value="">Select Subject</option>
+      <option value="math">Math</option>
+      <option value="Calculus">Calculus</option>
+      <option value="Algebra">Algebra</option>
+      <option value="Chemistry">Chemistry</option>
+      <option value="english">English</option>
+      <option value="history">History</option>
+      <option value="Business">Business</option>
+      <option value="Engineering">Engineering</option>
+      <option value="Biology">Biology</option>
+      <option value="Others">Others</option>
+    </select>
+
+    <input type="number" id="pages" placeholder="Number of Pages" min="1" required />
+
+    <select id="level" required>
+      <option value="">Select Academic Level</option>
+      <option value="undergrad">Undergraduate</option>
+      <option value="postgrad">Postgraduate</option>
+      <option value="masters">Masters</option>
+      <option value="phd">PhD</option>
+    </select>
+
+    <select id="currency" required>
+      <option value="USD">$ - US Dollars</option>
+      <option value="GBP">£ - British Pounds</option>
+    </select>
+
+    <div class="calculated-budget" id="calculatedBudget">Budget: $0</div>
+
+    <button type="submit" class="btn">Submit Assignment</button>
+  </form>
+
+  <div class="message" id="formMessage"></div>
+</div>
+
+<script>
+  const form = document.getElementById('assignmentForm');
+  const messageDiv = document.getElementById('formMessage');
+  const calculatedBudget = document.getElementById('calculatedBudget');
+
+  const baseRate = 10; // $10 per page for undergrad
+  const stepUpCharge = 4; // $4 per level above undergrad
+
+  const levelRates = {
+    undergrad: 0,
+    postgrad: 1,
+    masters: 2,
+    phd: 3
+  };
+
+  function calculateBudget() {
+    const pages = parseInt(document.getElementById('pages').value) || 0;
+    const level = document.getElementById('level').value;
+    const currency = document.getElementById('currency').value;
+
+    if (!pages || !level) {
+      calculatedBudget.textContent = 'Budget: $0';
+      return;
+    }
+
+    let perPage = baseRate + (levelRates[level] * stepUpCharge);
+    let total = pages * perPage;
+    let symbol = currency === 'GBP' ? '£' : '$';
+
+    calculatedBudget.textContent = `Budget: ${symbol}${total.toFixed(2)}`;
+    return { total, symbol };
+  }
+
+  document.getElementById('pages').addEventListener('input', calculateBudget);
+  document.getElementById('level').addEventListener('change', calculateBudget);
+  document.getElementById('currency').addEventListener('change', calculateBudget);
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const deadline = document.getElementById('deadline').value;
+    const subject = document.getElementById('subject').value;
+    const pages = document.getElementById('pages').value;
+    const level = document.getElementById('level').value;
+    const currency = document.getElementById('currency').value;
+    const budgetData = calculateBudget();
+
+    try {
+      const response = await fetch('https://eduwriterpro-backend.onrender.com/api/assignments', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          deadline,
+          subject,
+          pages,
+          level,
+          currency,
+          budget: `${budgetData.symbol}${budgetData.total.toFixed(2)}`
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        messageDiv.textContent = 'Assignment posted successfully!';
+        messageDiv.style.color = 'green';
+        form.reset();
+        calculatedBudget.textContent = 'Budget: $0';
+      } else {
+        messageDiv.textContent = data.message || 'Failed to post assignment.';
+        messageDiv.style.color = 'red';
+      }
+    } catch (error) {
+      console.error('Error posting assignment:', error);
+      messageDiv.textContent = 'Server error. Please try again later.';
+      messageDiv.style.color = 'red';
+    }
+  });
+</script>
+
+</body>
+</html>
