@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | EduWriterPro</title>
+
+  <style>
+    body, html {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f0f4f8;
+      color: #2d3748;
+      height: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      width: 90%;
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #5a67d8;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      margin-left: 1.5rem;
+      color: #2d3748;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .signup-card {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input, select {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      background-color: #5a67d8;
+      color: #fff;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background-color: #434190;
+    }
+
+    .google-btn {
+      background: #db4437;
+      color: #fff;
+      padding: 0.75rem;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: #2d3748;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo">EduWriterPro</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="post-assignment.html">Post Assignment</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Sign Up Form -->
+<div class="container">
+  <div class="signup-card">
+    <h2>Create an Account</h2>
+    <form id="signupForm">
+      <input type="text" id="signupName" placeholder="Full Name" required />
+      <input type="email" id="signupEmail" placeholder="Email" required />
+      <input type="password" id="signupPassword" placeholder="Password" required />
+      <select id="signupRole" required>
+        <option value="">I am a...</option>
+        <option value="student">Student</option>
+        <option value="writer">Writer</option>
+      </select>
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+    <div class="google-btn" onclick="alert('Google Sign Up integration coming soon')">
+      Sign Up with Google
+    </div>
+    <div class="message" id="formMessage"></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  © 2025 EduWriterPro. All rights reserved.
+</footer>
+
+<script>
+  const signupForm = document.getElementById('signupForm');
+  const formMessage = document.getElementById('formMessage');
+
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fullName = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const role = document.getElementById('signupRole').value;
+
+    try {
+      const response = await fetch('https://eduwriterpro-backend.onrender.com/api/signup', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ fullName, email, password, role })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        formMessage.textContent = 'Signup Successful!';
+        formMessage.style.color = 'green';
+        signupForm.reset();
+      } else {
+        formMessage.textContent = data.message || 'Signup failed.';
+        formMessage.style.color = 'red';
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      formMessage.textContent = 'Server error. Please try again later.';
+      formMessage.style.color = 'red';
+    }
+  });
+</script>
+
+</body>
+</html>
