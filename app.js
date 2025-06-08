@@ -12,10 +12,6 @@ app.use(cors({
 // Middleware
 app.use(express.json()); // Enable parsing of JSON request bodies
 
-// Serve static HTML files from the 'views' folder
-// Example: /views/post-assignment.html
-app.use(express.static(path.join(__dirname, 'views')));
-
 // Basic route for testing
 app.get('/', (req, res) => {
   res.send('EduWriterPro Backend Running ✅');
