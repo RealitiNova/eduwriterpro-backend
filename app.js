@@ -27,5 +27,17 @@ app.get('/post-assignment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'post-assignment.html'));
 });
 
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+});
+
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'signup.html'));
+});
+
+app.get('/how-it-works', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'how-it-works.html'));
+});
+
 // Export the app for server.js to use
 module.exports = app;
