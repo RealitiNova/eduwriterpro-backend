@@ -39,6 +39,10 @@ app.get('/post-assignment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'post-assignment.html'));
 });
 
+app.get('/articles', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'articles.html'));
+});
+
 
 // ✅ Dynamic Articles: Article List Page
 app.get('/articles', async (req, res) => {
