@@ -26,25 +26,42 @@ app.get('/how-it-works', (req, res) => res.sendFile(path.join(__dirname, 'views'
 app.get('/post-assignment', (req, res) => res.sendFile(path.join(__dirname, 'views', 'post-assignment.html')));
 app.get('/create-article', (req, res) => res.sendFile(path.join(__dirname, 'views', 'create-article.html')));
 
-// ✅ GET: Dynamic Article List
+// ✅ GET: Dynamic Article List (Admin check via query param)
 app.get('/articles', async (req, res) => {
   const articles = await Article.find().sort({ createdAt: -1 });
+  const isAdmin = req.query.admin === 'true';
 
   let html = `
     <html>
       <head><title>Articles</title></head>
-      <body>
-        <h1>Writing Help & Resources</h1>
-        <ul>
+      <body style="font-family: 'Segoe UI', sans-serif; background:#f9f9f9; padding:2rem;">
+        <h1 style="color:#2d3748;">Writing Help & Resources</h1>
+        <ul style="list-style:none; padding-left:0;">
   `;
 
   articles.forEach(article => {
-    html += `<li><a href="/articles/${article.slug}">${article.title}</a></li>`;
+    html += `
+      <li style="margin: 1rem 0;">
+        <a href="/articles/${article.slug}" style="text-decoration:none; color:#5a67d8; font-weight:bold;">
+          ${article.title}
+        </a>
+      </li>
+    `;
   });
 
+  html += '</ul>';
+
+  if (isAdmin) {
+    html += `
+      <p style="margin-top:2rem;">
+        <a href="/create-article" style="color:#25d366; text-decoration:none; font-weight:600;">
+          ➕ Create New Article
+        </a>
+      </p>
+    `;
+  }
+
   html += `
-        </ul>
-        <p><a href="/create-article">➕ Create New Article</a></p>
       </body>
     </html>
   `;
@@ -63,7 +80,7 @@ app.get('/articles/:slug', async (req, res) => {
   res.send(`
     <html>
       <head><title>${article.title}</title></head>
-      <body>
+      <body style="font-family:'Segoe UI', sans-serif; padding:2rem;">
         <h1>${article.title}</h1>
         <article>${article.content}</article>
         <p><a href="https://wa.me/19472803413?text=Hi%2C%20I%20need%20help%20with%20a%20similar%20assignment" target="_blank">
@@ -85,7 +102,7 @@ app.post('/create-article', async (req, res) => {
 
   try {
     await Article.create({ title, slug, content });
-    res.redirect('/articles');
+    res.redirect('/articles?admin=true');
   } catch (err) {
     console.error(err);
     res.status(500).send('Error saving article');
