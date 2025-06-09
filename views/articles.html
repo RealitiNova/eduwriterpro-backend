@@ -4,72 +4,120 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Articles | EduWriterPro</title>
+
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
-      color: #333;
-      margin: 0;
+      background: #f9f9fb;
+      color: #2d3748;
+      line-height: 1.6;
     }
 
     .navbar {
-      background: #ffffff;
-      border-bottom: 1px solid #ddd;
-      padding: 1rem;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 0;
     }
 
-    .navbar nav a {
-      margin-right: 1.5rem;
-      color: #333;
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #5a67d8;
       text-decoration: none;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1rem;
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 500;
     }
 
-    h1 {
+    .nav-links a {
+      color: #2d3748;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
       color: #5a67d8;
     }
 
-    .article-list {
-      list-style: none;
-      padding: 0;
+    .hero {
+      background: linear-gradient(135deg, #5a67d8, #7f9cf5);
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
     }
 
-    .article-list li {
-      margin-bottom: 1.5rem;
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .articles-section {
+      padding: 3rem 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .article-card {
+      background: white;
+      padding: 1.5rem;
       border-left: 4px solid #5a67d8;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
     }
 
-    .article-list li a {
-      font-size: 1.2rem;
+    .article-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
       color: #2d3748;
-      text-decoration: none;
     }
 
-    .article-list li a:hover {
+    .article-card a {
+      text-decoration: none;
+      color: #5a67d8;
+      font-weight: 600;
+    }
+
+    .article-card a:hover {
       text-decoration: underline;
     }
 
     .cta {
-      margin-top: 2rem;
       text-align: center;
+      margin-top: 2.5rem;
     }
 
     .cta a {
-      display: inline-block;
       background-color: #25d366;
-      color: #fff;
-      padding: 0.8rem 1.5rem;
-      border-radius: 30px;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
       text-decoration: none;
       font-weight: bold;
+      transition: background 0.3s ease;
     }
 
     .cta a:hover {
@@ -77,34 +125,51 @@
     }
   </style>
 </head>
+
 <body>
 
+  <!-- Navbar -->
   <header class="navbar">
-    <nav class="container">
-      <a href="/">Home</a>
-      <a href="/how-it-works">How It Works</a>
-      <a href="/post-assignment">Post Assignment</a>
-      <a href="/articles">Articles</a>
-      <a href="/login">Login</a>
-      <a href="/signup">Sign Up</a>
-    </nav>
+    <div class="nav-container">
+      <a href="/" class="logo">EduWriterPro</a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/articles">Articles</a>
+        <a href="/how-it-works">How It Works</a>
+        <a href="/post-assignment">Post Assignment</a>
+        <a href="/login">Login</a>
+        <a href="/signup">Sign Up</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="container">
-    <h1>Writing Help & Academic Articles</h1>
-    <ul class="article-list">
-      <li><a href="/articles/ai-in-education">How AI is Changing Academic Writing</a></li>
-      <li><a href="/articles/time-management">Time Management Tips for Students</a></li>
-      <li><a href="/articles/essay-structure">How to Structure a Winning Essay</a></li>
-    </ul>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Expert Articles & Academic Writing Help</h1>
+    <p>Learn, explore, and connect with the help you need to succeed in school</p>
+  </section>
+
+  <!-- Articles -->
+  <section class="articles-section">
+    <div class="article-card">
+      <h2><a href="/articles/ai-in-education">How AI is Changing Academic Writing</a></h2>
+      <p>Explore how tools like ChatGPT are reshaping the education landscape...</p>
+    </div>
+
+    <div class="article-card">
+      <h2><a href="/articles/time-management">Time Management Tips for Students</a></h2>
+      <p>7 proven ways to manage your time and meet assignment deadlines...</p>
+    </div>
+
+    <div class="article-card">
+      <h2><a href="/articles/essay-structure">How to Structure a Winning Essay</a></h2>
+      <p>Use this guide to organize your ideas clearly and logically for maximum marks...</p>
+    </div>
 
     <div class="cta">
-      <p>Need help with your assignment?</p>
-      <a href="https://wa.me/19472803413?text=Hi%2C%20I%20saw%20your%20article%20and%20need%20assignment%20help." target="_blank">
-        📱 Chat with a Writer on WhatsApp
-      </a>
+      <a href="https://wa.me/19472803413?text=Hi%2C%20I%20need%20help%20with%20my%20assignment.">📱 Chat on WhatsApp</a>
     </div>
-  </main>
+  </section>
 
 </body>
 </html>
