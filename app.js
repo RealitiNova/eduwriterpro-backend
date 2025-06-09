@@ -9,14 +9,14 @@ const app = express();
 // === Enable CORS for frontend ===
 app.use(cors({
   origin: 'https://eduwriterpro.com',
-  credentials: true
+  credentials: true,
 }));
 
-// === Middleware for forms + JSON ===
+// === Middleware ===
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// === Static Files (favicon, CSS, JS) ===
+// === Serve static assets ===
 app.use(express.static(path.join(__dirname, 'public')));
 
 // === Static HTML Pages ===
@@ -27,7 +27,27 @@ app.get('/how-it-works', (req, res) => res.sendFile(path.join(__dirname, 'views'
 app.get('/post-assignment', (req, res) => res.sendFile(path.join(__dirname, 'views', 'post-assignment.html')));
 app.get('/articles', (req, res) => res.sendFile(path.join(__dirname, 'views', 'articles.html')));
 
-// === Admin-only Article Creation (GET with password) ===
+// === Admin Dashboard Access ===
+app.get('/admin', (req, res) => {
+  const { password } = req.query;
+  if (password !== 'secret123') {
+    return res.status(401).send('Unauthorized: Invalid admin password');
+  }
+
+  res.send(`
+    <html>
+      <head><title>Admin</title></head>
+      <body style="font-family: sans-serif; padding: 2rem; text-align: center;">
+        <h1>Admin Panel</h1>
+        <a href="/create-article?password=secret123">➕ Create New Article</a>
+        <br/><br/>
+        <a href="/articles">← Back to Articles</a>
+      </body>
+    </html>
+  `);
+});
+
+// === GET: Article Creation Page (Admin Only) ===
 app.get('/create-article', (req, res) => {
   const password = req.query.password;
   if (password !== 'secret123') {
@@ -36,7 +56,7 @@ app.get('/create-article', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'create-article.html'));
 });
 
-// === Handle Article Creation (POST) ===
+// === POST: Create Article ===
 app.post('/create-article', async (req, res) => {
   const { title, slug, content } = req.body;
   if (!title || !slug || !content) {
@@ -47,12 +67,12 @@ app.post('/create-article', async (req, res) => {
     await Article.create({ title, slug, content });
     res.redirect('/articles');
   } catch (err) {
-    console.error('Failed to save article:', err);
+    console.error('Error saving article:', err);
     res.status(500).send('Server error saving article');
   }
 });
 
-// === Individual Article Viewer ===
+// === GET: Dynamic Article View ===
 app.get('/articles/:slug', async (req, res) => {
   try {
     const article = await Article.findOne({ slug: req.params.slug });
@@ -63,34 +83,35 @@ app.get('/articles/:slug', async (req, res) => {
     res.send(`
       <!DOCTYPE html>
       <html>
-      <head>
-        <title>${article.title}</title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
-          body { font-family: 'Segoe UI', sans-serif; max-width: 700px; margin: 2rem auto; padding: 1rem; background: #f9f9fb; color: #2d3748; }
-          h1 { color: #4a5568; }
-          a { color: #5a67d8; text-decoration: none; }
-        </style>
-      </head>
-      <body>
-        <h1>${article.title}</h1>
-        <article>${article.content}</article>
-        <br/>
-        <a href="/articles">← Back to Articles</a>
-        <br/><br/>
-        <a href="https://wa.me/19472803413?text=Hi%2C%20I%20read%20your%20article%20and%20need%20assignment%20help." target="_blank">
-          📱 Chat on WhatsApp
-        </a>
-      </body>
+        <head>
+          <title>${article.title}</title>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <style>
+            body { font-family: 'Segoe UI', sans-serif; max-width: 700px; margin: 2rem auto; padding: 1rem; background: #f9f9fb; color: #2d3748; }
+            h1 { color: #4a5568; }
+            a { color: #5a67d8; text-decoration: none; }
+          </style>
+        </head>
+        <body>
+          <h1>${article.title}</h1>
+          <article>${article.content}</article>
+          <br/>
+          <a href="/articles">← Back to Articles</a>
+          <br/><br/>
+          <a href="https://wa.me/19472803413?text=Hi%2C%20I%20read%20your%20article%20and%20need%20assignment%20help." target="_blank">
+            📱 Chat on WhatsApp
+          </a>
+        </body>
       </html>
     `);
   } catch (err) {
+    console.error('Error loading article:', err);
     res.status(500).send('Error loading article');
   }
 });
 
-// === Form Handlers ===
+// === Forms (Signup / Login / Assignment / Contact) ===
 app.post('/signup', (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) return res.status(400).send('All fields required');
