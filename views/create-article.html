@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Article | EduWriterPro</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9fb;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #5a67d8;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: #2d3748;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #5a67d8;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 3rem auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #2d3748;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #5a67d8;
+      color: #fff;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: block;
+      margin: 0 auto;
+    }
+
+    button:hover {
+      background-color: #434190;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .back-link a {
+      color: #5a67d8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">EduWriterPro</a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/articles">Articles</a>
+        <a href="/how-it-works">How It Works</a>
+        <a href="/post-assignment">Post Assignment</a>
+        <a href="/login">Login</a>
+        <a href="/signup">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Form Section -->
+  <div class="container">
+    <h1>Publish New Article</h1>
+    <form method="POST" action="/create-article">
+      <label for="title">Article Title</label>
+      <input type="text" id="title" name="title" placeholder="Enter article title" required>
+
+      <label for="slug">URL Slug (e.g. study-tips)</label>
+      <input type="text" id="slug" name="slug" placeholder="Enter URL-friendly slug" required>
+
+      <label for="content">Article Content</label>
+      <textarea id="content" name="content" rows="10" placeholder="Write your article here..." required></textarea>
+
+      <button type="submit">Publish Article</button>
+    </form>
+
+    <div class="back-link">
+      <p><a href="/articles">← Back to Articles</a></p>
+    </div>
+  </div>
+
+</body>
+</html>
